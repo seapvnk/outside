@@ -1,4 +1,4 @@
-import { randomString } from "src/helpers/string";
+import { randomString } from "src/common/helpers/string";
 
 interface IKeyModelInitArgs {
     id?: number;
