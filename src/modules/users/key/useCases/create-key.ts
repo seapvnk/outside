@@ -4,6 +4,7 @@ import { ApplicationSettingsRepository } from 'src/infrastructure/repositories/a
 import { KeyRepository } from 'src/infrastructure/repositories/key.repository';
 import { KeyErrorTags } from './enums/key-errors-tags';
 import { KeyModel } from './models/key.model';
+import { ApplicationError } from 'src/common/error/errors/application.error';
 
 interface ICreateKeyServiceArgs {
     masterKey: string;
@@ -24,12 +25,12 @@ export class CreateKey {
     async handle({ masterKey }: ICreateKeyServiceArgs): Promise<ICreateKeyReturn> {
         const appSettings = await this.applicationSettingsRepository.find();
         if (appSettings) {
-            throw Error(KeyErrorTags.MASTERKEY_ALREADY_USED);
+            throw new ApplicationError(KeyErrorTags.MASTERKEY_ALREADY_USED);
         }
 
         const appMasterKey = this.configService.get('MASTER_KEY');
         if (appMasterKey !== masterKey) {
-            throw Error(KeyErrorTags.INCORRECT_MASTERKEY);
+            throw new ApplicationError(KeyErrorTags.INCORRECT_MASTERKEY);
         }
 
         const generatedKey = new KeyModel();
