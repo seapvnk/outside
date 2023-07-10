@@ -33,10 +33,8 @@ export class CreateKey {
             throw new ApplicationError(KeyErrorTags.INCORRECT_MASTERKEY);
         }
 
-        const generatedKey = new KeyModel();
-
         const [key] = await Promise.all([
-            this.keyRepository.create(generatedKey),
+            this.keyRepository.create(new KeyModel()),
             this.applicationSettingsRepository.create()
         ]);
 
