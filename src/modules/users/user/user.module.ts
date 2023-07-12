@@ -12,6 +12,7 @@ import { ApplicationPrismaClient } from 'src/infrastructure/clients/application-
         KeyRepository, 
         UserRepository,
         ApplicationPrismaClient
-    ]
+    ],
+    exports: [UserRepository]
 })
 export class UserModule {}
