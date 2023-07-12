@@ -25,8 +25,8 @@ export class KeyRepository {
         Prisma.RejectPerOperation, DefaultArgs
     >
 
-    constructor(private readonly prisma: ApplicationPrismaClient) {
-        this.repository = this.prisma.key;
+    constructor(prisma: ApplicationPrismaClient) {
+        this.repository = prisma.key;
     }
 
     create(data: IKeyCreate): Promise<IKeyEntity> {
@@ -34,10 +34,14 @@ export class KeyRepository {
     }
 
     find(): Promise<IKeyEntity[]> {
-        return this.repository.findMany();
+        return this.repository.findMany({ where: { active: true }});
     }
 
-    update({ id, active }: IKeyUpdate): Promise<IKeyEntity> {
-        return this.repository.update({ data: { active }, where: { id } });
+    findByCode(code: string): Promise<IKeyEntity> {
+        return this.repository.findUnique({ where: { code }});
+    }
+
+    deactivate(code: string): Promise<IKeyEntity>  {
+        return this.repository.update({ data: { active: false }, where: { code } });
     }
 }
