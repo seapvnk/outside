@@ -7,10 +7,12 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { ApplicationErrorFilter } from './common/error/filters/application-error.filter';
 import { InternalServerErrorFilter } from './common/error/filters/internal-server-error.filter';
+import { AuthModule } from './modules/auth/auth.module';
+import { JwtAuthGuard } from './modules/auth/http/guards/jwt-auth.guard';
 
 @Module({
   imports: [
-    UserModule, KeyModule,
+    UserModule, KeyModule, AuthModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
