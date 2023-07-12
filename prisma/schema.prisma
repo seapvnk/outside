@@ -8,12 +8,19 @@ generator client {
 }
 
 model ApplicationSettings {
-    id Int @default(1) @id
-    masterKeyUsed Boolean @default(true)
+  id            Int     @id @default(1)
+  masterKeyUsed Boolean @default(true)
 }
 
 model Key {
-    id Int @default(autoincrement()) @id
-    code String @unique
-    active Boolean @default(true)
+  id     Int     @id @default(autoincrement())
+  code   String  @unique
+  active Boolean @default(true)
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  username   String       @unique
+  password   String
+  superUser Boolean @default(false)
 }

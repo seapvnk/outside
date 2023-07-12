@@ -19,8 +19,8 @@ export class ApplicationSettingsRepository {
         Prisma.RejectPerOperation, DefaultArgs
     >
 
-    constructor(private readonly prisma: ApplicationPrismaClient) {
-        this.repository = this.prisma.applicationSettings
+    constructor(prisma: ApplicationPrismaClient) {
+        this.repository = prisma.applicationSettings
     }
 
     create(): Promise<IApplicationSettingsEntity> {
