@@ -19,8 +19,31 @@ model Key {
 }
 
 model User {
-  id         Int          @id @default(autoincrement())
-  username   String       @unique
-  password   String
+  id        Int     @id @default(autoincrement())
+  username  String  @unique
+  password  String
   superUser Boolean @default(false)
+}
+
+model Map {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String
+  height      Int
+  width       Int
+  type        MapType
+  layers      MapLayer[]
+}
+
+model MapLayer {
+  id    Int    @id @default(autoincrement())
+  map   Map    @relation(fields: [mapId], references: [id])
+  mapId Int
+  name  String
+  data  String
+}
+
+enum MapType {
+  INTERIOR
+  EXTERIOR
 }
